@@ -66,38 +66,32 @@ export default function Users() {
 
     try {
       if (currentSearchQuery) {
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_BASE_API_URL}/api/user/query`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              search: currentSearchQuery,
-              currentPage: currentPage + 1,
-              limit: LIMIT,
-            }),
-          }
-        );
+        const response = await fetch(`/api/user/query`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            search: currentSearchQuery,
+            currentPage: currentPage + 1,
+            limit: LIMIT,
+          }),
+        });
 
         const result = await response.json();
         setData(result?.data);
         setTotalCount(result?.total);
       } else {
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_BASE_API_URL}/api/user`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              currentPage: currentPage + 1,
-              limit: LIMIT,
-            }),
-          }
-        );
+        const response = await fetch(`/api/user`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            currentPage: currentPage + 1,
+            limit: LIMIT,
+          }),
+        });
 
         const result = await response.json();
         setData(result?.data);
